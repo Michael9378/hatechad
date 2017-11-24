@@ -1,0 +1,50 @@
+Website will be reddit style page
+No account log on required
+Any and all user information will be stored in local storage
+Page will have "Enter your best Chad Hate message" with 140 character limit
+Below this will be the other user submitted messages
+Filter at the top will filter messages by time frames (Today, This week, This month, All Time)
+Sort will sort messages by highest ranked, lowest ranked, newest (default) and oldest
+Will load 50 messages at a time with a load more button at the bottom to pull another 50
+Each message will have a thumbs up or thumbs down voting
+Link to Spencer's YouTube and sticker shop as well as links to Spencer and Chad's Instagram
+
+Database Setup
+	msgIndex INT
+	content VARCHAR (key)
+	upVotes INT
+	downVotes INT
+	freshness DATE
+
+Front end setup
+	1 page loads in entirety
+	2 ajax to call first 50 messages
+	3 hooked to ajax is to check local storage for current user's up and down votes
+	4 disable the up or down vote based on whether the user already voted for this
+
+Local Data
+	Save content as array of msgIndex and 0 for no vote, 1 for upvote, 2 for downvote
+
+Ajax Calls
+	Get 50 messages
+		input
+			skip: number of skips
+			filter: today, this week, this month, all time
+			sort: highest, lowest, newest, oldest
+		output
+			50 messages in order with index, content, upvote, downvote
+
+	Post Message
+		input
+			content
+		output
+			true/false
+
+	Vote Post*
+		input
+			upvote: value between -1 and 1
+			downvote: value between -1 and 1
+		output
+			true/false
+
+		*if a user is voting for first time, send a 1,0 for upvote or 0,1 for downvote. If user is changing vote, -1, 1 or 1, -1 for up to down and down to up votes respectively
