@@ -4,31 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>We HATE Chad</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="frontend/styles.css" rel="stylesheet">
   </head>
   <body>
+
   	<nav>
   		<div class="container">
   			<div class="row">
-  				<div class="col-xs-3">
-  					<u>=</u><!-- sort and filter functions -->
+  				<div class="col-xs-3 nav-button" id="nav_sort">
+  					=<!-- sort and filter functions -->
   				</div>
-  				<div class="col-xs-6">
+  				<div class="col-xs-6 nav-button" id="nav_top">
   					<h3>Fuck Chad</h3><!-- this brings you to the top to write a new post -->
   				</div>
-  				<div class="col-xs-3">
+  				<div class="col-xs-3 nav-button" id="nav_menu">
   					+<!-- navigation -->
   				</div>
   			</div>
   		</div>
-  	</nav>
+    </nav>
+    
+    <div class="sort-pane">SORT AND FILTER</div>
+    <div class="menu-pane">PAGES AND LINKS</div>
 
   	<div class="container content">
   		<div class="row new-post">
-  			<!-- new post stuff here -->
+        <div class="col-xs-12">
+          <form id="newPost">
+              <textarea name="content" rows="5"></textarea>
+              <input type="hidden" id="newPost_authorId"/>
+              <input type="submit" value="Fuck Chad" class="fr"/>
+            </form>
+        </div>
+      </div>
+      
+  		<div class="row" id="posts">
+        <!-- pull all the posts form db here -->
+        <div class="post col-md-6" data-id="1">
+          <p>I hate Chad</p>
+          <div class="row center">
+            <div class="col-xs-2">^</div>
+            <div class="col-xs-8">2017/11/26 11:38:37</div>
+            <div class="col-xs-2">v</div>
+          </div>
+        </div>
   		</div>
-  		<div class="row posts">
-  			<!-- pull all the posts form db here -->
-  			<button>Load more posts</button>
-  		</div>
+      
+      <div class="row">
+        <button id="posts_load" class="fr">Load more</button>
+      </div>
+
+    </div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="frontend/main.js"></script>
 </html>

@@ -1,0 +1,15 @@
+.sort-pane, .menu-pane {
+  display: none;
+}
+
+textarea {
+  width: 100%;
+}
+
+.fr {
+  float: right;
+}
+
+.center, .center div {
+  text-align: center;
+}
