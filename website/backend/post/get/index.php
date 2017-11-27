@@ -9,7 +9,7 @@ if( isset( $_POST["start_post"] ) ){
 
 	$filter = "all";
 	$time = 0;
-	$date = date("Y-m-d", $time);
+	$date = date("Y-m-d H:i:s", $time);
 
 	$sort = "new";
 	$order = "ORDER BY age DESC ";
@@ -34,7 +34,7 @@ if( isset( $_POST["start_post"] ) ){
 			break;
 	}
 
-	$date = date("Y-m-d", $time);
+	$date = date("Y-m-d H:i:s", $time);
 
 	// sort
 	switch($sort){

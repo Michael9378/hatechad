@@ -7,7 +7,7 @@ if( isset( $_POST["authorId"] ) && isset( $_POST["content"] ) ){
 
 	$authorId = $_POST["authorId"];
 	$content = $_POST["content"];
-	$date = date("Y-m-d");
+	$date = date("Y-m-d H:i:s");;
 
 	$sql = "INSERT INTO `post` (`authorId`, `content`, `age`) ";
 	$sql .= "VALUES(".$authorId.", '".$content."', '".$date."');";

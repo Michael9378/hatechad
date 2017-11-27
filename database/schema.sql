@@ -1,14 +1,14 @@
 CREATE TABLE post (
-	id INT NOT NULL AUTO_INCREMENT,
-	authorId INT NOT NULL,
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	authorId INT UNSIGNED NOT NULL,
 	content VARCHAR(280),
 	votes INT DEFAULT 0,
-	age DATE,
+	age DATETIME,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE author (
-	authorId INT NOT NULL,
+	authorId INT UNSIGNED NOT NULL,
 	rejectedPosts INT NOT NULL DEFAULT 0,
 	unban DATE DEFAULT '0000-00-00',
 	PRIMARY KEY (authorId)
@@ -16,6 +16,6 @@ CREATE TABLE author (
 
 CREATE TABLE polarPopCount (
 	id INT,
-	value INT,
+	value INT UNSIGNED,
 	PRIMARY KEY (id)
 );
