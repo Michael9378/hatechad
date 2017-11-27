@@ -3,29 +3,58 @@
 
 require getcwd().'/../../lib/h.php';
 
-if( isset( $_POST["user_id"] ) && isset( $_POST["follows_user_id"] ) ){
+if( isset( $_POST["start_post"] ) ){
 
-	$user_id = $_POST["user_id"];
-	$follows_user_id = $_POST["follows_user_id"];
+	$start_post = $_POST["start_post"];
 
-	$waitTime = time() + (4 * 24 * 60 * 60);
-	$follows_unfollow_date = date("Y-m-d", $waitTime);
-	$date = date("Y-m-d");
+	$filter = "all";
+	$time = 0;
+	$date = date("Y-m-d", $time);
 
-	$sql = "INSERT INTO `ig_follows` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$follows_unfollow_date."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`freshness`='".$date."'; ";
-	sql_set_query( $sql );
+	$sort = "new";
+	$order = "ORDER BY age DESC ";
 
-	$sql = "INSERT INTO `ig_botaction_follow` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`action_date`='".$date."';";
+
+	if( isset( $_POST["filter"] ) )
+		$filter = $_POST["filter"];
+
+	if( isset( $_POST["sort"] ) )
+		$sort = $_POST["sort"];
+
+	// filter based on time frame
+	switch($filter){
+		case "day":
+			$time = time() - (1 * 24 * 60 * 60);
+			break;
+		case "week":
+			$time = time() - (7 * 24 * 60 * 60);
+			break;
+		case "month":
+			$time = time() - (30 * 24 * 60 * 60);
+			break;
+	}
+
+	$date = date("Y-m-d", $time);
+
+	// sort
+	switch($sort){
+		case "old":
+			$order = "ORDER BY age ASC ";
+			break;
+		case "high":
+			$order = "ORDER BY votes DESC ";
+			break;
+	}
+
+	$sql = "SELECT * ";
+	$sql .= "FROM `post` ";
+	$sql .= "WHERE age > '".$date."' ";
+	$sql .= $order;
+	$sql .= "LIMIT ".$start_post.", 50;";
 	
-	jr( sql_set_query( $sql ) );
+	jr( sql_get_query( $sql ) );
 }
 else
-	jr("Missing user_id and/or follows_user_id params.");
+	jr("Missing start_post params.");
 
 ?>

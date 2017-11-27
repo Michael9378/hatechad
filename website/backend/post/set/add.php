@@ -3,29 +3,18 @@
 
 require getcwd().'/../../lib/h.php';
 
-if( isset( $_POST["user_id"] ) && isset( $_POST["follows_user_id"] ) ){
+if( isset( $_POST["authorId"] ) && isset( $_POST["content"] ) ){
 
-	$user_id = $_POST["user_id"];
-	$follows_user_id = $_POST["follows_user_id"];
-
-	$waitTime = time() + (4 * 24 * 60 * 60);
-	$follows_unfollow_date = date("Y-m-d", $waitTime);
+	$authorId = $_POST["authorId"];
+	$content = $_POST["content"];
 	$date = date("Y-m-d");
 
-	$sql = "INSERT INTO `ig_follows` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$follows_unfollow_date."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`freshness`='".$date."'; ";
-	sql_set_query( $sql );
-
-	$sql = "INSERT INTO `ig_botaction_follow` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`action_date`='".$date."';";
+	$sql = "INSERT INTO `post` (`authorId`, `content`, `age`) ";
+	$sql .= "VALUES(".$authorId.", '".$content."', '".$date."');";
 	
 	jr( sql_set_query( $sql ) );
 }
 else
-	jr("Missing user_id and/or follows_user_id params.");
+	jr("Missing authorId and/or content params.");
 
 ?>

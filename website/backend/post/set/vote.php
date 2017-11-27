@@ -3,29 +3,18 @@
 
 require getcwd().'/../../lib/h.php';
 
-if( isset( $_POST["user_id"] ) && isset( $_POST["follows_user_id"] ) ){
+if( isset( $_POST["id"] ) && isset( $_POST["vote"] ) ){
 
-	$user_id = $_POST["user_id"];
-	$follows_user_id = $_POST["follows_user_id"];
+	$id = $_POST["id"];
+	$vote = $_POST["vote"];
 
-	$waitTime = time() + (4 * 24 * 60 * 60);
-	$follows_unfollow_date = date("Y-m-d", $waitTime);
-	$date = date("Y-m-d");
-
-	$sql = "INSERT INTO `ig_follows` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$follows_unfollow_date."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`freshness`='".$date."'; ";
-	sql_set_query( $sql );
-
-	$sql = "INSERT INTO `ig_botaction_follow` ";
-	$sql .= "VALUES('".$user_id."', '".$follows_user_id."', '".$date."') ";
-	$sql .= "ON DUPLICATE KEY UPDATE ";
-	$sql .= "`action_date`='".$date."';";
+	$sql = "UPDATE `post` ";
+	$sql .= "SET votes = votes + ".$vote." ";
+	$sql .= "WHERE id = ".$id.";";
 	
 	jr( sql_set_query( $sql ) );
 }
 else
-	jr("Missing user_id and/or follows_user_id params.");
+	jr("Missing id and/or vote params.");
 
 ?>
